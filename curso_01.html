@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">    
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
+    <title>Cusro Vue</title>
+</head>
+    <div id="app">
+        <!-- Inicio del cursso primeros pasos-->
+        <!-- v-text-->
+        <!-- v-show-->
+        <!-- v-if-->
+        <!-- v-else-->
+        <!--v-if quita el componenete del DOM-->
+        <!-- v-show agrega el estilo display:none; y deja el componente en el DOM-->
+        
+        <h1 v-show="message.length > 2">Hola VueJS <span v-text="message"></span></h1>        
+        <h1 v-if="message.length > 2">Hola VueJS <span v-text="message"></span></h1>
+        <h1 v-else>Por favor escribe tu nombre</h1>
+        <input type="text" v-model="message">
+        <button @click="reverse">Invertir</button>
+
+        <h2>Lusta de tareas</h2>
+        <ul>
+            <li v-for="tarea in tareas" v-text="tarea.title"></li>            
+            <li v-for="tarea in tareas" >
+                <span v-text="tarea.title"></span>
+                <small v-if="tarea.completed">Tarea completa</small>
+                <small v-else="">Tarea incompleta</small>
+            </li>            
+        </ul>
+
+    </div>
+    
+    <script>        
+        
+        var app = new Vue({
+            el:'#app',
+            data:{
+                message:"Aprendible",
+                tareas:[
+                    {"title":"Aprender PHP", completed:true},
+                    {"title":"Aprender Laravel", completed:false},
+                    {"title":"Aprender VueJs", completed:true}
+                ]
+            },
+            methods:{
+                reverse: function(){
+                    this.message = this.message.split('').reverse().join('');
+                }
+            }
+        })
+    </script>
+<body>
+    
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">    
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <title>Cusro Vue</title>
+</head>
+    <div class="container">
+        <div id="app">        
+            <div>Cambio primer curso</div>
+            <h2>Lista de tareas</h2>
+            <ul>
+                <li v-for="tarea in tareas" v-text="tarea.title"></li>            
+                <li v-for="tarea in tareas" >
+                    <span v-text="tarea.title"></span>
+                    <small v-if="tarea.completed">Tarea completa</small>
+                    <small v-else="">Tarea incompleta</small>
+                </li>            
+                <li class="form-inline">
+                    <input type="text" class="form-control" name="" id="">
+                    <button class="btn btn-primary">+</button>
+                    <div>cambio para probar git</div>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+    <script>        
+        
+        var app = new Vue({
+            el:'#app',
+            data:{
+                tareas:[
+                    {"title":"Aprender PHP", completed:true},
+                    {"title":"Aprender Laravel", completed:false},
+                    {"title":"Aprender VueJs", completed:true}
+                ]
+            },
+            methods:{
+
+            }
+        })
+    </script>
+<body>
+    
+</body>
+</html>
