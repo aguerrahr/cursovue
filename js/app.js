@@ -1,61 +1,69 @@
 Vue.config.devtools=true;
-Vue.component('user',{
-    props:['name','lastName'],    
+Vue.component('tasks',{    
+    template: `
+        <dvi>
+            <h1>Lista de tareas (CSS Dinámico con Propiedades Calculadas)</h1>            
+            <h4 v-if="completed" >Tareas completas: {{ completed }}</h4>
+            <h4 v-if="incompleted">Tareas incompletas: {{ incompleted }}</h4>
+            <ul>
+                <li is="task" v-for="task in tasks"  :task="task"></li>
+                <li class="form-inline">
+                    <input v-on:keyup.enter="add" v-model="newTask" type="text" class="form-control" name="" id="">
+                </li>
+            </ul>
+        </dvi>
+    `,
     data: function(){
         return {
-            app:{
-                name: 'Aprendible'
-            }
+            newTask:"",
+            tasks:[
+                {"title":"Aprender PHP", completed:true},
+                {"title":"Aprender Laravel", completed:false},
+                {"title":"Aprender VueJs", completed:true}
+            ]            
         }
     },
-    template: `<div>
-                    <h1>{{ app.name }}</h1>
-                    <h2>{{ name }} {{ lastName }}</h2>
-                    <input v-model="name"></input>
-                    <input v-model="app.name"></input>
-                    
-                </div>`
-});
-var app = new Vue({
-    el:'#app',
-    data:{
-        tasks:[
-            {"title":"Aprender PHP", completed:true},
-            {"title":"Aprender Laravel", completed:false},
-            {"title":"Aprender VueJs", completed:true}
-        ],
-        newTask:""
-    },
     methods:{
-        addTask: function(){
+        add: function(){
             if(this.newTask.length <= 1) return alert('La taera no puede estar vacía');
             this.tasks.push({
                 title: this.newTask,
                 completed: false
             });
             this.newTask = "";
-        },
-        taskClasses: function(task){
-            console.log('css changed');
-            return ['glyphicon',task.completed ? 'glyphicon-check' : 'glyphicon-unchecked'];
-        },
-        comlpleteTask:function(task){
-            task.completed = ! task.completed
-        }
+        }       
     },
-    computed:{
-        reverseTask:function(){
-            return this.newTask.split('').reverse().join('');
-        },
-        completedTasks:function(){
+    computed:{      
+        completed:function(){
             return this.tasks.filter(function(task){
                 return task.completed;
             }).length;
         },
-        incompletedTasks:function(){
+        incompleted:function(){
             return this.tasks.filter(function(task){
                 return !task.completed;
             }).length;
+        }      
+    }   
+    
+});
+//si coloca los cambios
+Vue.component('task',{
+    props:['task'],
+    template:`<li>
+        <span v-text="task.title"></span>                    
+        <span @click="comlplete()" :class="classes"></span>
+    </li>`,
+    methods:{        
+        comlplete:function(){
+            this.task.completed = ! this.task.completed
         }
-    }
-})
+    },
+    computed:{
+        classes: function(){
+            console.log('css changed');
+            return ['glyphicon',this.task.completed ? 'glyphicon-check' : 'glyphicon-unchecked'];
+        },
+    }    
+});
+var app = new Vue({el:'#app'});

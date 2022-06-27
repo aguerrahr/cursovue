@@ -14,6 +14,8 @@
         }
     </style>
 </head>
+    
+<body>
     <div class="container">
         <div id="app">        
             <h1>Lista de tareas (CSS Dinámico con Métodos) estra practica no es del otodo correcta ya que se usan métodos y no properties computed (prooiedades computadas) la soluciónes coloacr un componente ya que se usa un for</h1>
@@ -45,7 +47,7 @@
     </div>
     <script>        
         Vue.config.devtools=true;
-        
+        var app = new Vue({
             el:'#app',
             data:{
                 tasks:[
@@ -89,7 +91,5 @@
             }
         })
     </script>
-<body>
-    
 </body>
 </html>
