@@ -56,15 +56,10 @@ Vue.component('task',{
     template:`<li :class="classes">
         <div class="view">
             <input class="toggle" type="checkbox" v-model="task.completed" />
-            <label v-text="task.title" @dblclick="edit()"></label>
+            <input v-show="editing" v-model="task.title" @keyup.enter="doneEdit()">
+            <label v-text="task.title" @dblclick="edit()" v-show= "!editing" ></label>
             <button class="destroy" @click="remove()"></button>
         </div>        
-        <input class="edit" 
-            v-model="task.title"
-            @keyup.enter="doneEdit()" 
-            @blur="doneEdit()"
-            @keyup.esc="cancelEdit()" 
-            >
         
     </li>`,   
     data: function(){
@@ -74,18 +69,10 @@ Vue.component('task',{
     },
     methods:{
         edit:function(){
-            this.cacheBeforeEdit = this.task.title;
             this.editing = true;
         },
         doneEdit:function(){
-            if(! this.task.title){
-                this.remove();
-            }
             this.editing = false;
-        },
-        cancelEdit: function(){
-            this.editing = false;
-            this.task.title = this.cacheBeforeEdit;
         },
         remove: function(){
             var tasks = this.$parent.tasks;
@@ -94,7 +81,7 @@ Vue.component('task',{
     },
     computed:{
         classes: function(){
-            return {completed: this.task.completed, editing: this.editing}
+            return {completed: this.task.completed}
         },
     }    
 });
